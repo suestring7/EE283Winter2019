@@ -4,7 +4,8 @@ In practice, much of the day-to-day work in academia relies on non-free software
 many reasons.  One reason is an ethical one: if we want our work to be reproducible, requiring that someone use non-free
 software (especially software requiring a fee/subscription) becomes a barrier to others reproducing your work.
 
-This page is an incomplete list of open source alternatives to non-free software.
+This page is an incomplete and opinionated list of open source alternatives to non-free software.  I also admit where
+non-free alternatives are likely superior.  
 
 ## Alternatives to Microsoft Office
 
@@ -21,6 +22,22 @@ This page is an incomplete list of open source alternatives to non-free software
   My current favorite is Paperpile, which is a plugin for the Chrome/Chromium browsers.  It is not free, costing $35US
   per year.  This is the best tool that I've used, and I've used most of them at one point or another.  Whatever you do,
   just delete EndNote ASAP.
+
+## Alternatives to PowerPoint
+
+PowerPoint is part of MS Office, but alternatives deserve their own section.
+
+* LaTeX/beamer.  I'll get flamed on Twitter for this, but I do **not** recommend this.  This is a fussy way to make
+  slides, even by LaTeX standards.  It is simply un-modern, which is why most presentations generated with this platform
+  just end up being bullet lists.  Do a Google Images search--the results are pretty rough-looking.
+* RStudio and Jupyter/JupyterLab notebook.  Both tools have the option to output HTML slides with Javascript.  This can be a great
+  workflow.  The RStudio implementation is a bit more mature, but I've had good success with both.  The only caveat is
+  that conferences will typically want a PDF.  Both tools have tricks allowing you to print your slides to pdf.  Google
+  is your friend here.
+
+### Keynote
+
+If your an an OS X user, stick with Keynote.  Honestly, it is great.
 
 ## Alternatives to Adobe tools
 
