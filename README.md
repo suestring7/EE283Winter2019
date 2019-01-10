@@ -11,7 +11,7 @@
 
 ## Lab exercises
 
-* [Week 1](Lab1.md)
+* [Week 1](Lab1.md).  The slides/nodes are [here](tidyverse.md).
 
 ## Additional materials
 
