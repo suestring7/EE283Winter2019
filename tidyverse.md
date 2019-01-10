@@ -33,8 +33,39 @@ This gets its own slide!!!!
 WHO tuberculosis data.  (p 163 of book)
 ======================================
 
-```{r}
+
+```r
 head(tidyr::who)
+```
+
+```
+# A tibble: 6 x 60
+  country iso2  iso3   year new_sp_m014 new_sp_m1524 new_sp_m2534
+  <chr>   <chr> <chr> <int>       <int>        <int>        <int>
+1 Afghan… AF    AFG    1980          NA           NA           NA
+2 Afghan… AF    AFG    1981          NA           NA           NA
+3 Afghan… AF    AFG    1982          NA           NA           NA
+4 Afghan… AF    AFG    1983          NA           NA           NA
+5 Afghan… AF    AFG    1984          NA           NA           NA
+6 Afghan… AF    AFG    1985          NA           NA           NA
+# ... with 53 more variables: new_sp_m3544 <int>, new_sp_m4554 <int>,
+#   new_sp_m5564 <int>, new_sp_m65 <int>, new_sp_f014 <int>,
+#   new_sp_f1524 <int>, new_sp_f2534 <int>, new_sp_f3544 <int>,
+#   new_sp_f4554 <int>, new_sp_f5564 <int>, new_sp_f65 <int>,
+#   new_sn_m014 <int>, new_sn_m1524 <int>, new_sn_m2534 <int>,
+#   new_sn_m3544 <int>, new_sn_m4554 <int>, new_sn_m5564 <int>,
+#   new_sn_m65 <int>, new_sn_f014 <int>, new_sn_f1524 <int>,
+#   new_sn_f2534 <int>, new_sn_f3544 <int>, new_sn_f4554 <int>,
+#   new_sn_f5564 <int>, new_sn_f65 <int>, new_ep_m014 <int>,
+#   new_ep_m1524 <int>, new_ep_m2534 <int>, new_ep_m3544 <int>,
+#   new_ep_m4554 <int>, new_ep_m5564 <int>, new_ep_m65 <int>,
+#   new_ep_f014 <int>, new_ep_f1524 <int>, new_ep_f2534 <int>,
+#   new_ep_f3544 <int>, new_ep_f4554 <int>, new_ep_f5564 <int>,
+#   new_ep_f65 <int>, newrel_m014 <int>, newrel_m1524 <int>,
+#   newrel_m2534 <int>, newrel_m3544 <int>, newrel_m4554 <int>,
+#   newrel_m5564 <int>, newrel_m65 <int>, newrel_f014 <int>,
+#   newrel_f1524 <int>, newrel_f2534 <int>, newrel_f3544 <int>,
+#   newrel_f4554 <int>, newrel_f5564 <int>, newrel_f65 <int>
 ```
 
 Messy!!!
@@ -47,7 +78,8 @@ Messy!!!
 Let's look at something simpler
 ========================================
 
-```{r}
+
+```r
 library(tidyverse)
 make_gb <- function()
 {
@@ -61,22 +93,50 @@ gradebook=make_gb()
 gradebook
 ```
 
+```
+# A tibble: 2 x 5
+  student  exam1 exam1total exam2 exam2total
+  <chr>    <dbl>      <dbl> <dbl>      <dbl>
+1 Anadil      11         12    14         15
+2 Fernando    10         12    12         15
+```
+
 Get the weighted percentage for each student using "base" R
 =============================================
 
-```{r}
+
+```r
 gradebook$wp = (gradebook$exam1/gradebook$exam1total)*(gradebook$exam1total/(gradebook$exam1total+gradebook$exam2total)) + (gradebook$exam2/gradebook$exam2total)*(gradebook$exam2total/(gradebook$exam1total+gradebook$exam2total))
 gradebook
+```
+
+```
+# A tibble: 2 x 6
+  student  exam1 exam1total exam2 exam2total    wp
+  <chr>    <dbl>      <dbl> <dbl>      <dbl> <dbl>
+1 Anadil      11         12    14         15 0.926
+2 Fernando    10         12    12         15 0.815
 ```
 
 Let's clean up the data first
 ===============================================
 
-```{r}
+
+```r
 tgb=make_gb() %>% 
   gather(exam1,exam2,key="exam",value="score") %>%
   mutate(total_points=exam1total+exam2total)
 tgb
+```
+
+```
+# A tibble: 4 x 6
+  student  exam1total exam2total exam  score total_points
+  <chr>         <dbl>      <dbl> <chr> <dbl>        <dbl>
+1 Anadil           12         15 exam1    11           27
+2 Fernando         12         15 exam1    10           27
+3 Anadil           12         15 exam2    14           27
+4 Fernando         12         15 exam2    12           27
 ```
 
 Note the side effect!
@@ -84,7 +144,8 @@ Note the side effect!
 Better
 =========================
 
-```{r}
+
+```r
 tgb=make_gb() %>% 
   gather(exam1,exam2,key="exam",value="score") %>%
   mutate(total_points=exam1total+exam2total) %>%
@@ -92,10 +153,21 @@ tgb=make_gb() %>%
 tgb
 ```
 
+```
+# A tibble: 4 x 4
+  student  exam  score total_points
+  <chr>    <chr> <dbl>        <dbl>
+1 Anadil   exam1    11           27
+2 Fernando exam1    10           27
+3 Anadil   exam2    14           27
+4 Fernando exam2    12           27
+```
+
 Let's just do it
 ==========================
 
-```{r}
+
+```r
 tgb=make_gb() %>% 
   gather(exam1,exam2,key="exam",value="score") %>%  # Make 1 column
   mutate(total_points=exam1total+exam2total) %>%    # Add total points
@@ -103,6 +175,14 @@ tgb=make_gb() %>%
   group_by(student) %>%                             # process each student separately
   summarise(wp=sum(score)/unique(total_points))     # Get the answer
 tgb
+```
+
+```
+# A tibble: 2 x 2
+  student     wp
+  <chr>    <dbl>
+1 Anadil   0.926
+2 Fernando 0.815
 ```
 
 More generally
