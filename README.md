@@ -9,6 +9,10 @@
 * [Assignment 1](https://github.com/ThorntonLab/AdvInformatics2019Assignment1).  This is due before lab starts on
   Thursday!!!!!!!!  Instructions in the README.
 
+## Lab exercises
+
+* [Week 1](Lab1.md)
+
 ## Additional materials
 
 * [Open source tools for academics](oss.md)
