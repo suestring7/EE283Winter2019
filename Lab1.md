@@ -6,6 +6,10 @@ From real book to ebook:
 
 7-10 correspond to 10 thru 13, respectively.  
 
+## Due date
+
+Next Tuesday, by the start of class
+
 ## Instructions
 
 1. Create a GitHub repo that is EMPTY, but includes a README.md file.
