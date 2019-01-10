@@ -43,8 +43,8 @@ Do the following:
 
 ## The "database-like stuff" with dplyr chapter, 10
 
-1. Exercise 1 in first set of exercises
-2. Exercise 2 in the second set of exercises
+1. Exercise 1 in second set of exercises
+2. Exercise 2 in the third set of exercises
 
 Note: this chapter is worth studying in detail!!  Join operations are extremely common.  We just don't have time to have
 you do all the problems.
