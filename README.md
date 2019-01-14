@@ -8,7 +8,7 @@
 
 * [Assignment 1](https://github.com/ThorntonLab/AdvInformatics2019Assignment1).  This is due before lab starts on
   Thursday!!!!!!!!  Instructions in the README.
-* [Assignment 2][hw2.md]
+* [Assignment 2](hw2.md)
 
 ## Lab exercises
 
