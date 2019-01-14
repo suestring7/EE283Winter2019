@@ -65,3 +65,11 @@ Hint: you will need both `dplyr` and `tidyr` functions for your `tidyverse` solu
 multiple new columns via `mutate` and then processing them for the final output.  Also, be sure to use "negative
 selection" to get rid of columns that you don't need!  For real data, you wouldn't want to write all your intermediate
 calculations to the output file!
+
+### Some background
+
+Over the weekend, I had to do exactly this to a large number of files.  It took me a while to see how to use `tidyverse`
+to do it, and so my first attempt was done with "base" R. I tested my solution on a small file, and it worked fine and
+ran pretty fast.  However, on the real data, it quickly became clear that it would take many hours to run on each file,
+which was unacceptable.  I spent some time redoing the work flow using `tidyverse`, and the analyses then ran in about 5
+minutes per file!
