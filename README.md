@@ -3,6 +3,7 @@
 ## Course notes
 
 * [Week 1 notes](Week1Lecture.md)
+* [Week 2 notes](Intro2Python.html)
 
 ## Assignments
 
