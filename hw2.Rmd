@@ -1,0 +1,45 @@
+---
+title: "EE283_hw2"
+author: "suestring"
+date: "1/17/2019"
+output: html_document
+---
+
+## Homework 2
+### First, solve the problem with base R:
+```{r readdata}
+geno <- data.frame(c(0,0,1,0,0,0,0,1,1,0,0,0,0,0))
+names(geno) <- "value"
+#geno <- read.delim("ee283_hw2.txt",header=TRUE)
+geno$pos <- row(geno)
+geno$peak_pos <- geno$value*geno$pos
+geno$flag <- 1-geno$value
+N <- nrow(geno)
+geno$pre_peak=N # a little trick to make the distance farest
+for (loop in (2:N)){
+  geno[loop,"pre_peak"] <- (geno[loop,"flag"]*geno[loop-1,"pre_peak"]+geno[loop,"peak_pos"])
+  }
+geno$post_peak=1 # same here
+for (loop in ((N-1):1)){
+  geno[loop,"post_peak"] <- (geno[loop,"flag"]*geno[loop+1,"post_peak"]+geno[loop,"peak_pos"])
+}
+geno$pre=abs(geno$pos-geno$pre_peak)
+geno$post=abs(geno$post_peak-geno$pos)
+geno$which=as.integer(geno$pre>geno$post)
+geno$closest=(1-geno$which)*geno$pre_peak+geno$which*geno$post_peak
+geno=geno[,c("value","closest")]
+```
+
+### Then, try to use tidyverse:
+```{r tidyverse}
+library(tidyverse)
+MAX=10000000 #set it to be like INF for your data size
+geno <- tibble(value=c(0,0,1,0,0,0,0,1,1,0,0,0,0,0))
+geno <- mutate(geno, idx=row_number(), pidx=idx*value)
+geno$post <- geno$pidx %>% accumulate(max)
+fn <- function(x, y) min(x+y, ifelse(y==0,MAX,y))
+geno$pre <- geno$pidx %>% accumulate_right(fn)
+geno <- mutate(geno, pre=replace(pre,0,MAX), post=replace(post,0,MAX),preD=pre-idx, postD=abs(idx-post),closest=ifelse(preD>postD,post,pre))
+geno <- select(geno,value,closest)
+```
+### It did take me a while to read the documentation and grammar about R and tidyverse. But tidyverse turned out to be very friendly written. Not sure about the speed though.
